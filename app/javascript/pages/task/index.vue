@@ -15,30 +15,22 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "TaskIndex",
   data() {
     return {
       title: "タスク管理アプリ",
-      tasks: [
-        {
-          id: 1,
-          title: "スーパに買い物に行く"
-        },
-        {
-          id: 2,
-          title: "子供の迎えに行く"
-        },
-        {
-          id: 3,
-          title: "新聞を解約する"
-        },
-        {
-          id: 4,
-          title: "ゴミ出しをする"
-        },
-      ]
+      tasks: [],
     }
+  },
+  created(){
+    axios
+    .get("http://localhost:3000/api/tasks")
+    .then((response)=>{
+      this.tasks = response.data
+    })
   }
 }
 </script>
