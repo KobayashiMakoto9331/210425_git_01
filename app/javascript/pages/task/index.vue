@@ -23,14 +23,16 @@ export default {
     return {
       title: "タスク管理アプリ",
       tasks: [],
+      status: '',
     }
   },
   created(){
     axios
-    .get("http://localhost:3000/api/tasks")
+    .get("/api/tasks")
     .then((response)=>{
       this.tasks = response.data
     })
+    .catch(err => this.status = err)
   }
 }
 </script>
