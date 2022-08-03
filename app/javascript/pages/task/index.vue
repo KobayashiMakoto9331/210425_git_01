@@ -15,8 +15,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
   name: "TaskIndex",
   data() {
@@ -27,12 +25,14 @@ export default {
     }
   },
   created(){
-    axios
-    .get("/api/tasks")
-    .then((response)=>{
-      this.tasks = response.data
-    })
-    .catch(err => this.status = err)
+    this.fetchTasks()
+  },
+  methods: {
+    fetchTasks(){
+      this.$axios.get("tasks")
+      .then(res => this.tasks = res.data )
+      .catch(err => console.log(err.status))
+    }
   }
 }
 </script>
