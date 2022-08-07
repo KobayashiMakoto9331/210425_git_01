@@ -15,6 +15,7 @@ const store = new Vuex.Store({
   mutations: {
     setTasks: (state, tasks)=>{
       state.tasks = tasks
+      console.log('setTasks')
     },
     addTask: (state, task)=>{
       state.tasks.push(task)
@@ -38,10 +39,10 @@ const store = new Vuex.Store({
     },
     // 削除
     deleteTask({commit}, task_id){
-      axios.delete('tasks/' + task_id)
-      axios.get("/tasks")
+      axios.delete('tasks/' + task_id)      
       .then(res => {
-        commit('setTasks', res.data)
+        console.log('削除した')
+        this.dispatch('fetchTasks')
       })
       .catch(err => console.log(err.response))
     },
