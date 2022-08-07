@@ -5,9 +5,9 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <h5 class="modal-title">タイトル</h5>
-          <textarea v-model="taskTitle"></textarea>
+          <textarea v-model="taskTitle" name="タイトル"></textarea>
           <h5 class="modal-title">説明文</h5>
-          <textarea v-model="taskDescription"></textarea>
+          <textarea v-model="taskDescription" name="説明文"></textarea>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
             <button type="button" class="btn btn-secondary" @click="createTask">追加</button>
