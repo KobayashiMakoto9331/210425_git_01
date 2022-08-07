@@ -1,20 +1,16 @@
 <template>
-  <div :id="'task-detail-modal-' + task.id">
+  <div id="task-create-modal">
     <!-- こっからモーダル要素 -->
     <div class="modal" @click.self="handleCloseModal">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">{{task.title}}</h5>
-            <button type="button" class="close" @click="handleCloseModal">
-              <span>&times;</span>
-            </button>
-          </div>
-          <div class="modal-body" v-if="task.description">
-            <p>{{task.description}}</p>
-          </div>
+          <h5 class="modal-title">タイトル</h5>
+          <textarea v-model="taskTitle"></textarea>
+          <h5 class="modal-title">説明文</h5>
+          <textarea v-model="taskDescription"></textarea>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
+            <button type="button" class="btn btn-secondary" @click="createTask">追加</button>
           </div>
         </div>
       </div>
@@ -26,22 +22,22 @@
 
 <script>
 export default ({
-  name: 'TaskDetailModal',
-  props:{
-    task: {
-      title: {
-        type: String,
-        required: true
-      },
-      description: {
-        type: String,
-        required: true
-      }
+  name: 'TaskCreateModal',
+  data(){
+    return {
+      taskTitle: '',
+      taskDescription: '',
     }
   },
   methods: {
     handleCloseModal(){
-      this.$emit("close-modal")
+      this.$emit("close-create-modal")
+    },
+    createTask(){
+      this.$emit("create-task-post", {
+        title: this.taskTitle,
+        description: this.taskDescription
+        })
     }
   }
 })
