@@ -1,5 +1,5 @@
 <template>
-  <div id="task-edit-modal">
+  <div :id="'task-edit-modal-' + task.id">
     <!-- こっからモーダル要素 -->
     <div class="modal" @click.self="handleCloseModal">
       <div class="modal-dialog">
