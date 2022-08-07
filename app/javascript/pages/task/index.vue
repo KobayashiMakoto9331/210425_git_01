@@ -9,7 +9,7 @@
           v-for="task in tasks"
           :key="task.id"
           :id="'task-' + task.id"
-          class="bg-white border shadow-sm rounded my-2 p-4"
+          class="bg-white border shadow-sm rounded my-2 p-4 d-flex align-items-center"
           @click="handleShowTaskDetailModal(task)"
           >
           <span>{{ task.title }}</span>
@@ -30,9 +30,9 @@
   <transition name="fade">
     <TaskModal
       v-if="isVisibleTaskModal" 
-      @close-modal="handleCloseTaskModal"
-      @delete-modal="handleDeleteTaskModal"
-      @edit-modal="handleEditTaskModal"
+      @close-modal="handleCloseTaskDetailModal"
+      @delete-task="handleDeleteTask"
+      @show-edit-modal="handleShowTaskEditModal"
       :task = "taskDetail"
     />
   </transition>
@@ -42,7 +42,7 @@
     <TaskCreateModal
       v-if="isVisibleTaskCreateModal" 
       @close-create-modal="handleCloseTaskCreateModal"
-      @create-task-post="handleCreateTaskPost"
+      @create-task-post="handleCreateTask"
     />
   </transition>
 
@@ -50,9 +50,9 @@
   <transition name="fade">
     <TaskEditModal
       v-if="isVisibleTaskEditModal" 
-      @close-edit-modal="handleCloseTaskEditModal"
-      @put-task-modal="handleEditTaskPut"
-      :task = "taskDetail"
+      @close-modal="handleCloseTaskEditModal"
+      @update-task="handleUpdateTask"
+      :task = "taskEdit"
     />
   </transition>
   </div>
@@ -68,11 +68,12 @@ export default {
   name: "TaskIndex",
   data() {
     return {
+      taskDetail: {},
       status: '',
       isVisibleTaskModal: false,
       isVisibleTaskCreateModal: false,
       isVisibleTaskEditModal: false,      
-      taskDetail: {},
+      taskEdit: {}
     }
   },
   created(){
@@ -91,18 +92,18 @@ export default {
       this.isVisibleTaskModal = true
       this.taskDetail = task
     },
-    handleCloseTaskModal(){
+    handleCloseTaskDetailModal(){
       this.isVisibleTaskModal = false
       this.taskDetail = {}
     },
     // タスク削除
-    async handleDeleteTaskModal(id){
+    async handleDeleteTask(task){
       try{
-        await this.deleteTask(id)
+        await this.deleteTask(task)
+        this.handleCloseTaskDetailModal()
       } catch (error) {
         console.log(error)
       }
-      this.handleCloseTaskModal()
     },
     // 新規タスク
     handleShowTaskCreateModal(){
@@ -111,7 +112,7 @@ export default {
     handleCloseTaskCreateModal(){
       this.isVisibleTaskCreateModal = false
     },
-    async handleCreateTaskPost(task){
+    async handleCreateTask(task){
       try{
         await this.createTask(task)
         this.handleCloseTaskCreateModal()
@@ -120,17 +121,17 @@ export default {
       }
     },
     // タスク編集
-    handleEditTaskModal(task){
-      this.handleCloseTaskModal()
+    handleShowTaskEditModal(task){
+      this.taskEdit = Object.assign({}, task)
+      this.handleCloseTaskDetailModal()
       this.isVisibleTaskEditModal = true
-      this.taskDetail = task
     },
     handleCloseTaskEditModal(){
       this.isVisibleTaskEditModal = false
-      this.taskDetail = {}
+      this.taskEdit = {}
     },
     // タスク更新
-    async handleEditTaskPut(task){
+    async handleUpdateTask(task){
       try{
         await this.updateTask(task)
         this.handleCloseTaskEditModal()

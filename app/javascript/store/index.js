@@ -20,6 +20,17 @@ const store = new Vuex.Store({
     addTask: (state, task)=>{
       state.tasks.push(task)
     },
+    deleteTask: (state, deleteTask) => {
+      state.tasks = state.tasks.filter(task => {
+        return task.id != deleteTask.id
+      })
+    },
+    updateTask: (state, updateTask) => {
+      const index = state.tasks.findIndex(task => {
+        return task.id == updateTask.id
+      })
+      state.tasks.splice(index, 1, updateTask)
+    },
 
   },
   actions: {
@@ -38,22 +49,20 @@ const store = new Vuex.Store({
       })
     },
     // 削除
-    deleteTask({commit}, task_id){
-      axios.delete('tasks/' + task_id)      
+    deleteTask({commit}, task){
+      return axios.delete(`tasks/${task.id}`)      
       .then(res => {
-        console.log('削除した')
-        this.dispatch('fetchTasks')
+        commit('deleteTask', res.data)
+        console.log(res.data)
       })
-      .catch(err => console.log(err.response))
     },
     // 編集
     updateTask({commit}, task){
-      axios.put('tasks/' + task.id, task)
-      axios.get("/tasks")
+      return axios.patch(`tasks/${task.id}`, task)
       .then(res => {
-        commit('setTasks', res.data)
+        commit('updateTask', res.data)
+        console.log(res.data)
       })
-      .catch(err => console.log(err.response))
     }
 
   }

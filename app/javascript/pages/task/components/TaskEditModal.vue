@@ -29,7 +29,7 @@
             <!-- ボタン -->
             <div class="d-flex justify-content-between">
               <button class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
-              <button class="btn btn-success" @click="handleUpdateTask(task)">更新</button>
+              <button class="btn btn-success" @click="handleUpdateTask">更新</button>
             </div>
           </div>
         </div>
@@ -45,6 +45,10 @@ export default ({
   name: 'TaskEditModal',
   props:{
     task: {
+      id: {
+        type: Number,
+        required: true
+      },
       title: {
         type: String,
         required: true
@@ -58,11 +62,11 @@ export default ({
   methods: {
     // モーダルを閉じる
     handleCloseModal(){
-      this.$emit("close-edit-modal")
+      this.$emit("close-modal")
     },
     // 編集送信
-    handleUpdateTask(task){
-      this.$emit("put-task-modal", task)
+    handleUpdateTask(){
+      this.$emit("update-task", this.task)
     }
   }
 })
