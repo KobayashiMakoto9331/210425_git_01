@@ -4,13 +4,33 @@
     <div class="modal" @click.self="handleCloseModal">
       <div class="modal-dialog">
         <div class="modal-content">
-          <h5 class="modal-title">タイトル</h5>
-          <textarea v-model="taskTitle" name="タイトル"></textarea>
-          <h5 class="modal-title">説明文</h5>
-          <textarea v-model="taskDescription" name="説明文"></textarea>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
-            <button type="button" class="btn btn-secondary" @click="createTask">追加</button>
+          <!-- モーダル -->
+          <div class="modal-body">
+            <!-- タイトル -->
+            <div class="form-group">
+              <label for="title">タイトル</label>
+              <input 
+                type="text"
+                class="form-control"
+                id="title"
+                v-model="task.title"
+              >
+            </div>
+            <!-- 説明文 -->
+            <div class="form-group">
+              <label for="description">説明文</label>
+              <textarea 
+                class="form-control"
+                id="description"
+                rows="5"
+                v-model="task.description"
+              ></textarea>
+            </div>
+            <!-- ボタン -->
+            <div class="d-flex justify-content-between">
+              <button class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
+              <button class="btn btn-success" @click="handleCreateTask">追加</button>
+            </div>
           </div>
         </div>
       </div>
@@ -25,19 +45,18 @@ export default ({
   name: 'TaskCreateModal',
   data(){
     return {
-      taskTitle: '',
-      taskDescription: '',
+      task: {
+        title: '',
+        description: ''
+      }
     }
   },
   methods: {
     handleCloseModal(){
       this.$emit("close-create-modal")
     },
-    createTask(){
-      this.$emit("create-task-post", {
-        title: this.taskTitle,
-        description: this.taskDescription
-        })
+    handleCreateTask(){
+      this.$emit("create-task-post", this.task)
     }
   }
 })

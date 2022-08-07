@@ -16,7 +16,6 @@
         </div>
         <!-- タスク追加 -->
         <button 
-          type="button"
           class="btn btn-secondary"
           @click="handleShowTaskCreateModal()"
           >タスクを追加
@@ -41,7 +40,7 @@
     <TaskCreateModal
       v-if="isVisibleTaskCreateModal" 
       @close-create-modal="handleCloseTaskCreateModal"
-      @create-task-post="createTaskPost"
+      @create-task-post="handleCreateTaskPost"
     />
   </transition>
   </div>
@@ -50,12 +49,12 @@
 <script>
 import TaskModal from './components/TaskDetailModal.vue'
 import TaskCreateModal from './components/TaskCreateModal.vue'
+import { mapGetters, mapActions } from "vuex"
 
 export default {
   name: "TaskIndex",
   data() {
     return {
-      tasks: [],
       status: '',
       isVisibleTaskModal: false,
       isVisibleTaskCreateModal: false,
@@ -67,11 +66,10 @@ export default {
   },
   methods: {
     // タスクの全情報取得
-    fetchTasks(){
-      this.$axios.get("/tasks")
-      .then(res => this.tasks = res.data )
-      .catch(err => console.log(err.status))
-    },
+    ...mapActions([
+      "fetchTasks",
+      "createTask"
+    ]),
     // タスク詳細
     handleShowTaskDetailModal(task){
       this.isVisibleTaskModal = true
@@ -88,17 +86,17 @@ export default {
     handleCloseTaskCreateModal(){
       this.isVisibleTaskCreateModal = false
     },
-    createTaskPost(task){
-      this.$axios.post('/tasks', {title: task.title, description: task.description})
-      .then(res=>{
-        console.log(res)
+    async handleCreateTaskPost(task){
+      try{
+        await this.createTask(task)
         this.handleCloseTaskCreateModal()
-        this.fetchTasks()
-      })
-    },
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
   computed: {
-    
+    ...mapGetters(["tasks"])
   },
   components: {
     TaskModal,
