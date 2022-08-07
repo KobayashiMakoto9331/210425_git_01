@@ -14,6 +14,8 @@
             <p>{{task.description}}</p>
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-success" @click="handleEditModal(task)">編集</button>
+            <button type="button" class="btn btn-alert" @click="handleDeleteModal(task.id)">削除</button>
             <button type="button" class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
           </div>
         </div>
@@ -40,8 +42,17 @@ export default ({
     }
   },
   methods: {
+    // 追加
     handleCloseModal(){
       this.$emit("close-modal")
+    },
+    // 削除
+    handleDeleteModal(id){
+      this.$emit("delete-modal", id)
+    },
+    // 編集
+    handleEditModal(task){
+      this.$emit("edit-modal", task)
     }
   }
 })

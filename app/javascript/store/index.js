@@ -18,7 +18,8 @@ const store = new Vuex.Store({
     },
     addTask: (state, task)=>{
       state.tasks.push(task)
-    }
+    },
+
   },
   actions: {
     fetchTasks({commit}){
@@ -34,7 +35,26 @@ const store = new Vuex.Store({
       .then(res=> {
         commit('addTask', res.data)
       })
+    },
+    // 削除
+    deleteTask({commit}, task_id){
+      axios.delete('tasks/' + task_id)
+      axios.get("/tasks")
+      .then(res => {
+        commit('setTasks', res.data)
+      })
+      .catch(err => console.log(err.response))
+    },
+    // 編集
+    updateTask({commit}, task){
+      axios.put('tasks/' + task.id, task)
+      axios.get("/tasks")
+      .then(res => {
+        commit('setTasks', res.data)
+      })
+      .catch(err => console.log(err.response))
     }
+
   }
 });
 export default store;

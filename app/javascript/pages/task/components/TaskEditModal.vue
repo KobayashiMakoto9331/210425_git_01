@@ -1,5 +1,5 @@
 <template>
-  <div id="task-create-modal">
+  <div id="task-edit-modal">
     <!-- こっからモーダル要素 -->
     <div class="modal" @click.self="handleCloseModal">
       <div class="modal-dialog">
@@ -29,7 +29,7 @@
             <!-- ボタン -->
             <div class="d-flex justify-content-between">
               <button class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
-              <button class="btn btn-success" @click="handleCreateTask">追加</button>
+              <button class="btn btn-success" @click="handleUpdateTask(task)">更新</button>
             </div>
           </div>
         </div>
@@ -42,23 +42,27 @@
 
 <script>
 export default ({
-  name: 'TaskCreateModal',
-  data(){
-    return {
-      task: {
-        title: '',
-        description: ''
+  name: 'TaskEditModal',
+  props:{
+    task: {
+      title: {
+        type: String,
+        required: true
+      },
+      description: {
+        type: String,
+        required: true
       }
     }
   },
   methods: {
     // モーダルを閉じる
     handleCloseModal(){
-      this.$emit("close-create-modal")
+      this.$emit("close-edit-modal")
     },
-    // タスク送信
-    handleCreateTask(){
-      this.$emit("create-task-post", this.task)
+    // 編集送信
+    handleUpdateTask(task){
+      this.$emit("put-task-modal", task)
     }
   }
 })
