@@ -7,15 +7,30 @@ Vue.use(Vuex);
 // Storeを生成
 const store = new Vuex.Store({
   state: {
-    tasks: []
+    tasks: [],
   },
   getters: {
-    tasks: state => state.tasks
+    tasks: state => state.tasks,
+    todoList: state => state.tasks.filter(task => task.status === 1),
+    doingList: state => state.tasks.filter(task => task.status === 2),
+    doneList: state => state.tasks.filter(task => task.status === 3),
   },
   mutations: {
     setTasks: (state, tasks)=>{
+      console.log('=============setTasks')
       state.tasks = tasks
-      console.log('setTasks')
+
+      // // リストの追加
+      // tasks.forEach( task => {
+      //   if(task.status == '1'){
+      //     state.todoList.push(task)
+      //   } else if(task.status == '2'){
+      //     state.doingList.push(task)
+      //   } else {
+      //     state.doneList.push(task)
+      //   }
+      // })
+
     },
     addTask: (state, task)=>{
       state.tasks.push(task)
@@ -37,10 +52,9 @@ const store = new Vuex.Store({
     fetchTasks({commit}){
       axios.get("/tasks")
       .then(res => {
-        console.log(res)
         commit('setTasks', res.data)
+        console.log('fetchしたよーーー')
       })
-      .catch(err => console.log(err.response))
     },
     createTask({commit}, task){
       axios.post('/tasks', task)

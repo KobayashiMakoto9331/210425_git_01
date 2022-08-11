@@ -1,27 +1,38 @@
 <template>
   <div>
-    <div class="d-flex">
-      <div class="col-4 bg-light rounded shadow m-3 p-3">
-        <!-- タイトル -->
-        <div class="h4">TODO</div>
-        <!-- タスク一覧 -->
-        <div 
-          v-for="task in tasks"
-          :key="task.id"
-          :id="'task-' + task.id"
-          class="bg-white border shadow-sm rounded my-2 p-4 d-flex align-items-center"
-          @click="handleShowTaskDetailModal(task)"
-          >
-          <span>{{ task.title }}</span>
-        </div>
-        <!-- タスク追加 -->
-        <button 
-          class="btn btn-secondary"
-          @click="handleShowTaskCreateModal()"
-          >タスクを追加
-        </button>
-      </div>
+    <div>
+      タスク数: {{this.tasks.length}}
     </div>
+    <!-- タスク一覧 -->
+    <TaskList
+      :tasks="this.todoList"
+      id="todo-list"
+    >
+    ToDo
+    </TaskList>
+
+    <TaskList
+      :tasks="this.doingList"
+      id="doing-list"
+    >
+    Doing
+    </TaskList>
+
+    <TaskList
+      :tasks="this.doneList"
+      id="done-list"
+      >
+    Done
+    </TaskList>
+
+    <!-- タスク追加 -->
+    <button 
+      class="btn btn-secondary"
+      @click="handleShowTaskCreateModal()"
+      >タスクを追加
+    </button>
+
+    <!-- 戻る -->
     <div class="text-center">
       <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
     </div>
@@ -62,6 +73,7 @@
 import TaskModal from './components/TaskDetailModal.vue'
 import TaskCreateModal from './components/TaskCreateModal.vue'
 import TaskEditModal from './components/TaskEditModal.vue'
+import TaskList from './components/TaskList.vue'
 import { mapGetters, mapActions } from "vuex"
 
 export default {
@@ -77,6 +89,7 @@ export default {
     }
   },
   created(){
+    console.log('===========created')
     this.fetchTasks()
   },
   methods: {
@@ -141,13 +154,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["tasks"])
+    ...mapGetters(["tasks", "todoList", "doingList", "doneList"])
   },
   components: {
     TaskModal,
     TaskCreateModal,
-    TaskEditModal
-  }
+    TaskEditModal,
+    TaskList
+  },
 }
 </script>
 
