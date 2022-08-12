@@ -9,7 +9,7 @@
           :key="task.id"
           :id="'task-' + task.id"
           class="bg-white border shadow-sm rounded my-2 p-4 d-flex align-items-center"
-          @click="handleShowTaskDetailModal(task)"
+          @click="ShowTaskDetailModal(task)"
           >
           <span>{{ task.title }}</span>
         </div>
@@ -25,6 +25,12 @@ export default {
     tasks: {
       type: Array
     }
-  }
+  },
+  methods: {
+    // タスク詳細
+    ShowTaskDetailModal(task){
+      this.$emit("show-detail-modal", task)
+    },
+  },
 }
 </script>

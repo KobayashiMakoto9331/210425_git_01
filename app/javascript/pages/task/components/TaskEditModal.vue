@@ -26,6 +26,19 @@
                 v-model="task.description"
               ></textarea>
             </div>
+            <!-- ステータス -->
+            <div class="form-group">
+              <label for="status">ステータス</label>
+              <select 
+                class="form-control"
+                id="status"
+                v-model="task.status"
+              >
+                <option value="todo">TODO</option>
+                <option value="doing">DOING</option>
+                <option value="done">DONE</option>
+              </select>
+            </div>
             <!-- ボタン -->
             <div class="d-flex justify-content-between">
               <button class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
@@ -55,6 +68,9 @@ export default ({
       },
       description: {
         type: String,
+        required: true
+      },
+      status: {
         required: true
       }
     }

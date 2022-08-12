@@ -34,9 +34,9 @@
                 id="status"
                 v-model="task.status"
               >
-                <option value="1">todo</option>
-                <option value="2">doing</option>
-                <option value="3">done</option>
+                <option value="todo">TODO</option>
+                <option value="doing">DOING</option>
+                <option value="done">DONE</option>
               </select>
             </div>
             <!-- ボタン -->

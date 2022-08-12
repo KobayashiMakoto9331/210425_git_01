@@ -6,23 +6,26 @@
     <!-- タスク一覧 -->
     <TaskList
       :tasks="this.todoList"
+      @show-detail-modal="handleShowTaskDetailModal"
       id="todo-list"
     >
-    ToDo
+    TODO
     </TaskList>
 
     <TaskList
       :tasks="this.doingList"
+      @show-detail-modal="handleShowTaskDetailModal"
       id="doing-list"
     >
-    Doing
+    DOING
     </TaskList>
 
     <TaskList
       :tasks="this.doneList"
+      @show-detail-modal="handleShowTaskDetailModal"
       id="done-list"
       >
-    Done
+    DONE
     </TaskList>
 
     <!-- タスク追加 -->
