@@ -115,7 +115,7 @@ export default {
       status: '',
       isVisibleTaskModal: false,
       isVisibleTaskCreateModal: false,
-      isVisibleTaskEditModal: false,      
+      isVisibleTaskEditModal: false,
       taskEdit: {}
     }
   },
