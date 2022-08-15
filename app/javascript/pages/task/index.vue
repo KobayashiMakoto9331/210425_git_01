@@ -3,31 +3,37 @@
     <div class="row">
       <TaskList
         :tasks="todoTasks"
-        taskListId="todo-list"
+        task-list-id="todo-list"
         @handleShowTaskDetailModal="handleShowTaskDetailModal"
-        >
+      >
         <template v-slot:header>
-          <div class="h4">TODO</div>
+          <div class="h4">
+            TODO
+          </div>
         </template>
       </TaskList>
 
       <TaskList
         :tasks="doingTasks"
-        taskListId="doing-list"
+        task-list-id="doing-list"
         @handleShowTaskDetailModal="handleShowTaskDetailModal"
-        >
+      >
         <template v-slot:header>
-          <div class="h4">DOING</div>
+          <div class="h4">
+            DOING
+          </div>
         </template>
       </TaskList>
 
       <TaskList
         :tasks="doneTasks"
-        taskListId="done-list"
+        task-list-id="done-list"
         @handleShowTaskDetailModal="handleShowTaskDetailModal"
-        >
+      >
         <template v-slot:header>
-          <div class="h4">DONE</div>
+          <div class="h4">
+            DONE
+          </div>
         </template>
       </TaskList>
     </div>
@@ -40,45 +46,51 @@
       <button 
         class="btn btn-secondary"
         @click="handleShowTaskCreateModal()"
-        >タスクを追加
+      >
+        タスクを追加
       </button>
 
       <!-- 戻る -->
       <div class="text-center">
-        <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
+        <router-link
+          :to="{ name: 'TopIndex' }"
+          class="btn btn-dark mt-5"
+        >
+          戻る
+        </router-link>
       </div>
     </div>
     
 
-  <!-- タスク詳細 -->
-  <transition name="fade">
-    <TaskDetailModal
-      v-if="isVisibleTaskModal" 
-      @close-modal="handleCloseTaskDetailModal"
-      @delete-task="handleDeleteTask"
-      @show-edit-modal="handleShowTaskEditModal"
-      :task = "taskDetail"
-    />
-  </transition>
+    <!-- タスク詳細 -->
+    <transition name="fade">
+      <TaskDetailModal
+        v-if="isVisibleTaskModal" 
+        :task="taskDetail"
+        @close-modal="handleCloseTaskDetailModal"
+        @delete-task="handleDeleteTask"
+        @show-edit-modal="handleShowTaskEditModal"
+      />
+    </transition>
 
-  <!-- 新規タスク -->
-  <transition name="fade">
-    <TaskCreateModal
-      v-if="isVisibleTaskCreateModal" 
-      @close-create-modal="handleCloseTaskCreateModal"
-      @create-task-post="handleCreateTask"
-    />
-  </transition>
+    <!-- 新規タスク -->
+    <transition name="fade">
+      <TaskCreateModal
+        v-if="isVisibleTaskCreateModal" 
+        @close-create-modal="handleCloseTaskCreateModal"
+        @create-task-post="handleCreateTask"
+      />
+    </transition>
 
-  <!-- 編集 -->
-  <transition name="fade">
-    <TaskEditModal
-      v-if="isVisibleTaskEditModal" 
-      @close-modal="handleCloseTaskEditModal"
-      @update-task="handleUpdateTask"
-      :task = "taskEdit"
-    />
-  </transition>
+    <!-- 編集 -->
+    <transition name="fade">
+      <TaskEditModal
+        v-if="isVisibleTaskEditModal" 
+        :task="taskEdit"
+        @close-modal="handleCloseTaskEditModal"
+        @update-task="handleUpdateTask"
+      />
+    </transition>
   </div>
 </template>
 
@@ -97,9 +109,20 @@ export default {
     TaskCreateModal,
     TaskEditModal,
   },
+  data() {
+    return {
+      taskDetail: {},
+      status: '',
+      isVisibleTaskModal: false,
+      isVisibleTaskCreateModal: false,
+      isVisibleTaskEditModal: false,      
+      taskEdit: {}
+    }
+  },
   computed: {
-    ...mapGetters(["tasks"]),
-
+    ...mapGetters('task', {
+      tasks: "tasks"
+    }),
     todoTasks(){
       return this.tasks.filter(task => {
         return task.status == "todo"
@@ -120,24 +143,14 @@ export default {
     console.log('===========created')
     this.fetchTasks()
   },
-  data() {
-    return {
-      taskDetail: {},
-      status: '',
-      isVisibleTaskModal: false,
-      isVisibleTaskCreateModal: false,
-      isVisibleTaskEditModal: false,      
-      taskEdit: {}
-    }
-  },
   methods: {
     // タスクの全情報取得
-    ...mapActions([
-      "fetchTasks",
-      "createTask",
-      "deleteTask",
-      "updateTask"
-    ]),
+    ...mapActions('task', {
+      fetchTasks: "fetchTasks",
+      createTask: "createTask",
+      deleteTask: "deleteTask",
+      updateTask: "updateTask"
+    }),
     // タスク詳細
     handleShowTaskDetailModal(task){
       this.isVisibleTaskModal = true

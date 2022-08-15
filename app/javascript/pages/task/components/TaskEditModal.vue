@@ -1,7 +1,10 @@
 <template>
   <div :id="'task-edit-modal-' + task.id">
     <!-- こっからモーダル要素 -->
-    <div class="modal" @click.self="handleCloseModal">
+    <div
+      class="modal"
+      @click.self="handleCloseModal"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <!-- モーダル -->
@@ -10,46 +13,62 @@
             <div class="form-group">
               <label for="title">タイトル</label>
               <input 
-                type="text"
-                class="form-control"
                 id="title"
                 v-model="task.title"
+                type="text"
+                class="form-control"
               >
             </div>
             <!-- 説明文 -->
             <div class="form-group">
               <label for="description">説明文</label>
               <textarea 
-                class="form-control"
                 id="description"
-                rows="5"
                 v-model="task.description"
-              ></textarea>
+                class="form-control"
+                rows="5"
+              />
             </div>
             <!-- ステータス -->
             <div class="form-group">
               <label for="status">ステータス</label>
               <select 
-                class="form-control"
                 id="status"
                 v-model="task.status"
+                class="form-control"
               >
-                <option value="todo">TODO</option>
-                <option value="doing">DOING</option>
-                <option value="done">DONE</option>
+                <option value="todo">
+                  TODO
+                </option>
+                <option value="doing">
+                  DOING
+                </option>
+                <option value="done">
+                  DONE
+                </option>
               </select>
             </div>
             <!-- ボタン -->
             <div class="d-flex justify-content-between">
-              <button class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
-              <button class="btn btn-success" @click="handleUpdateTask">更新</button>
+              <button
+                class="btn btn-secondary"
+                @click="handleCloseModal"
+              >
+                閉じる
+              </button>
+              <button
+                class="btn btn-success"
+                @click="handleUpdateTask"
+              >
+                更新
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- 背景 -->
-    <div class="l-modal__bg"></div>
+    <div class="l-modal__bg" />
   </div>
 </template>
 
@@ -57,6 +76,7 @@
 export default ({
   name: 'TaskEditModal',
   props:{
+    // eslint-disable-next-line 
     task: {
       id: {
         type: Number,

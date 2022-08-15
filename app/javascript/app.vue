@@ -1,9 +1,9 @@
 <template>
-    <div class="d-flex flex-column min-vh-100">
-      <TheHeader class="mb-auto" />
-      <router-view />
-      <TheFooter class="mb-auto" />
-    </div>
+  <div class="d-flex flex-column min-vh-100">
+    <TheHeader class="mb-auto" />
+    <router-view />
+    <TheFooter class="mb-auto" />
+  </div>
 </template>
 
 <script>

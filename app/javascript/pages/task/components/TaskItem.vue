@@ -4,10 +4,8 @@
     class="bg-white border shadow-sm rounded my-2 p-4 d-flex align-items-center"
     @click="handleShowTaskDetailModal(task)"
   >
-    <span>{{task.title}}</span>
-
+    <span>{{ task.title }}</span>
   </div>
-  
 </template>
 
 <script>
