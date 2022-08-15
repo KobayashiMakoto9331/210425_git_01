@@ -1,48 +1,58 @@
 <template>
-  <div>
-    <div>
-      タスク数: {{this.tasks.length}}
+  <div class="container-fluid">
+    <div class="row">
+      <TaskList
+        :tasks="todoTasks"
+        taskListId="todo-list"
+        @handleShowTaskDetailModal="handleShowTaskDetailModal"
+        >
+        <template v-slot:header>
+          <div class="h4">TODO</div>
+        </template>
+      </TaskList>
+
+      <TaskList
+        :tasks="doingTasks"
+        taskListId="doing-list"
+        @handleShowTaskDetailModal="handleShowTaskDetailModal"
+        >
+        <template v-slot:header>
+          <div class="h4">DOING</div>
+        </template>
+      </TaskList>
+
+      <TaskList
+        :tasks="doneTasks"
+        taskListId="done-list"
+        @handleShowTaskDetailModal="handleShowTaskDetailModal"
+        >
+        <template v-slot:header>
+          <div class="h4">DONE</div>
+        </template>
+      </TaskList>
     </div>
     <!-- タスク一覧 -->
-    <TaskList
-      :tasks="this.todoList"
-      @show-detail-modal="handleShowTaskDetailModal"
-      id="todo-list"
-    >
-    TODO
-    </TaskList>
+    
 
-    <TaskList
-      :tasks="this.doingList"
-      @show-detail-modal="handleShowTaskDetailModal"
-      id="doing-list"
-    >
-    DOING
-    </TaskList>
-
-    <TaskList
-      :tasks="this.doneList"
-      @show-detail-modal="handleShowTaskDetailModal"
-      id="done-list"
-      >
-    DONE
-    </TaskList>
-
-    <!-- タスク追加 -->
-    <button 
-      class="btn btn-secondary"
-      @click="handleShowTaskCreateModal()"
-      >タスクを追加
-    </button>
-
-    <!-- 戻る -->
+    <!-- ボタン -->
     <div class="text-center">
-      <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
+      <!-- タスク追加 -->
+      <button 
+        class="btn btn-secondary"
+        @click="handleShowTaskCreateModal()"
+        >タスクを追加
+      </button>
+
+      <!-- 戻る -->
+      <div class="text-center">
+        <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
+      </div>
     </div>
+    
 
   <!-- タスク詳細 -->
   <transition name="fade">
-    <TaskModal
+    <TaskDetailModal
       v-if="isVisibleTaskModal" 
       @close-modal="handleCloseTaskDetailModal"
       @delete-task="handleDeleteTask"
@@ -73,7 +83,7 @@
 </template>
 
 <script>
-import TaskModal from './components/TaskDetailModal.vue'
+import TaskDetailModal from './components/TaskDetailModal.vue'
 import TaskCreateModal from './components/TaskCreateModal.vue'
 import TaskEditModal from './components/TaskEditModal.vue'
 import TaskList from './components/TaskList.vue'
@@ -81,6 +91,35 @@ import { mapGetters, mapActions } from "vuex"
 
 export default {
   name: "TaskIndex",
+   components: {
+    TaskList,
+    TaskDetailModal,
+    TaskCreateModal,
+    TaskEditModal,
+  },
+  computed: {
+    ...mapGetters(["tasks"]),
+
+    todoTasks(){
+      return this.tasks.filter(task => {
+        return task.status == "todo"
+      })
+    },
+    doingTasks(){
+      return this.tasks.filter(task => {
+        return task.status == "doing"
+      })
+    },
+    doneTasks(){
+      return this.tasks.filter(task => {
+        return task.status == "done"
+      })
+    }
+  },
+  created(){
+    console.log('===========created')
+    this.fetchTasks()
+  },
   data() {
     return {
       taskDetail: {},
@@ -90,10 +129,6 @@ export default {
       isVisibleTaskEditModal: false,      
       taskEdit: {}
     }
-  },
-  created(){
-    console.log('===========created')
-    this.fetchTasks()
   },
   methods: {
     // タスクの全情報取得
@@ -155,15 +190,6 @@ export default {
         console.log(error);
       }
     }
-  },
-  computed: {
-    ...mapGetters(["tasks", "todoList", "doingList", "doneList"])
-  },
-  components: {
-    TaskModal,
-    TaskCreateModal,
-    TaskEditModal,
-    TaskList
   },
 }
 </script>

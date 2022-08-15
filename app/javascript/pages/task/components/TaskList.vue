@@ -1,36 +1,32 @@
 <template>
-  <div class="d-flex">
-      <div class="col-4 bg-light rounded shadow m-3 p-3">
-        <!-- タイトル -->
-        <div class="h4"><slot></slot></div>
-        <!-- タスク一覧 -->
-        <div 
-          v-for="task in tasks"
-          :key="task.id"
-          :id="'task-' + task.id"
-          class="bg-white border shadow-sm rounded my-2 p-4 d-flex align-items-center"
-          @click="ShowTaskDetailModal(task)"
-          >
-          <span>{{ task.title }}</span>
-        </div>
-       
-      </div>
+  <div class="col-12 col-lg-4">
+    <div :id="taskListId" class="bg-light rounded shadow m-3 p-3">
+      <slot name="header">タスク区分</slot>
+      <template v-for="task in tasks">
+        <TaskItem :key="task.id" :task="task" @handleShowTaskDetailModal="$listeners['handleShowTaskDetailModal']" />
+      </template>
     </div>
+    
+  </div>
 </template>
 
 <script>
+import TaskItem from "./TaskItem.vue"
 
 export default {
+  name: "TaskList",
+  components: {
+    TaskItem
+  },
   props: {
     tasks: {
-      type: Array
-    }
-  },
-  methods: {
-    // タスク詳細
-    ShowTaskDetailModal(task){
-      this.$emit("show-detail-modal", task)
+      type: Array,
+      required: true
     },
+    taskListId: {
+      type: String,
+      required: true
+    }
   },
 }
 </script>

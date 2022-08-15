@@ -31,6 +31,10 @@ export default ({
   name: 'TaskDetailModal',
   props:{
     task: {
+      id: {
+        type: Number,
+        required: true
+      },
       title: {
         type: String,
         required: true
