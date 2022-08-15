@@ -60,8 +60,9 @@
 export default ({
   name: 'TaskDetailModal',
   props:{
-    // eslint-disable-next-line 
     task: {
+      type: Object,
+      required: true,
       id: {
         type: Number,
         required: true

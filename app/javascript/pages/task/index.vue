@@ -120,7 +120,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('task', {
+    ...mapGetters('tasks', {
       tasks: "tasks"
     }),
     todoTasks(){
@@ -145,7 +145,7 @@ export default {
   },
   methods: {
     // タスクの全情報取得
-    ...mapActions('task', {
+    ...mapActions('tasks', {
       fetchTasks: "fetchTasks",
       createTask: "createTask",
       deleteTask: "deleteTask",

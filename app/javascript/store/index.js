@@ -1,14 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import task from "./modules/task"
-import user from "./modules/user"
+import tasks from "./modules/tasks"
+import users from "./modules/users"
 
 Vue.use(Vuex);
 
 // Storeを生成
 export default new Vuex.Store({
   modules: {
-    task,
-    user,
+    tasks,
+    users,
   }
 });
