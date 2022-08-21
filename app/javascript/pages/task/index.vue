@@ -67,6 +67,7 @@
       <TaskDetailModal
         v-if="isVisibleTaskModal" 
         :task="taskDetail"
+        :auth-user = "authUser"
         @close-modal="handleCloseTaskDetailModal"
         @delete-task="handleDeleteTask"
         @show-edit-modal="handleShowTaskEditModal"
@@ -120,9 +121,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('tasks', {
-      tasks: "tasks"
-    }),
+    ...mapGetters('tasks', {tasks: "tasks"}),
+    ...mapGetters('users', ["authUser"]),
+    
     todoTasks(){
       return this.tasks.filter(task => {
         return task.status == "todo"

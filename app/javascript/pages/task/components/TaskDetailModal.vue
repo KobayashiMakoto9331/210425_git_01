@@ -26,7 +26,9 @@
             <p>{{ task.description }}</p>
           </div>
           <div class="modal-footer">
-            <button
+
+            <template v-if="isAuthUserTask">
+               <button
               type="button"
               class="btn btn-success"
               @click="handleShowTaskEditModal"
@@ -40,6 +42,8 @@
             >
               削除
             </button>
+            </template>
+
             <button
               type="button"
               class="btn btn-secondary"
@@ -74,8 +78,25 @@ export default ({
       description: {
         type: String,
         required: true
+      },
+      user_id: {
+        type: Number,
+        required: true
+      },
+    },
+    authUser: {
+      type: Object,
+      required: true,
+      id: {
+        type: Number,
+        required: true
       }
     }
+  },
+  computed: {
+isAuthUserTask(){
+  return this.task.user_id == this.authUser.id
+}
   },
   methods: {
     // 追加
