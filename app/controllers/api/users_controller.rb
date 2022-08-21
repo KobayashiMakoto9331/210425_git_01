@@ -1,8 +1,9 @@
 class Api::UsersController < ApplicationController
   before_action :authenticate!, only: %i[me]
-  
+
   def create
     user = User.new(users_params)
+
     if user.save
       render json: user
     else
@@ -10,7 +11,7 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def me 
+  def me
     render json: current_user
   end
 
@@ -19,5 +20,4 @@ class Api::UsersController < ApplicationController
   def users_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-
 end

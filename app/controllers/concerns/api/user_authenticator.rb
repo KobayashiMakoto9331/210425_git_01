@@ -7,7 +7,6 @@ module Api::UserAuthenticator
 
     payload, = User.decode bearer_token
     @current_user ||= User.find_by(id: payload['user_id'])
-
   rescue JWT::ExpiredSignature
     nil
   end
@@ -21,8 +20,7 @@ module Api::UserAuthenticator
   def bearer_token
     pattern = /^Bearer/
     header = request.headers['Authorization']
-    
+
     header.gsub(pattern, '') if header&.match(pattern)
   end
-
 end
