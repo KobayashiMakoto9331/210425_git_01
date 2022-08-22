@@ -35,6 +35,7 @@ const actions = {
     axios.get("/tasks")
     .then(res => {
       console.log('========fetchTasks')
+      console.log(res.data)
       commit('setTasks', res.data)
     })
   },

@@ -3,7 +3,7 @@ class Api::TasksController < ApplicationController
   before_action :set_task, only: %i[show update destroy]
 
   def index
-    @tasks = current_user.tasks.build(task_params)
+    @tasks = current_user.tasks
     render json: @tasks
   end
 

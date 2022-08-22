@@ -121,7 +121,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('tasks', {tasks: "tasks"}),
+    ...mapGetters('tasks', ["tasks"]),
     ...mapGetters('users', ["authUser"]),
     
     todoTasks(){
