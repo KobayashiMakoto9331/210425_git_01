@@ -39,7 +39,7 @@
       </div>
       <!-- パスワード (確認用)-->
       <div class="form-group text-left">
-        <label for="password_confirmation">パスワード</label>
+        <label for="password_confirmation">パスワード（確認）</label>
         <input 
           id="password_confirmation"
           type="password"
