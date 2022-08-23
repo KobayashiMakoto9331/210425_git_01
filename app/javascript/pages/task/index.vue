@@ -67,7 +67,7 @@
       <TaskDetailModal
         v-if="isVisibleTaskModal" 
         :task="taskDetail"
-        :auth-user = "authUser"
+        :auth-user = "this.authUser"
         @close-modal="handleCloseTaskDetailModal"
         @delete-task="handleDeleteTask"
         @show-edit-modal="handleShowTaskEditModal"
@@ -78,6 +78,7 @@
     <transition name="fade">
       <TaskCreateModal
         v-if="isVisibleTaskCreateModal" 
+        :authUserTaskId = "this.authUser.id"
         @close-create-modal="handleCloseTaskCreateModal"
         @create-task-post="handleCreateTask"
       />

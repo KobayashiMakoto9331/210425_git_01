@@ -27,6 +27,7 @@
           </div>
           <div class="modal-footer">
 
+            <!-- 自分のタスクじゃないと編集できない -->
             <template v-if="isAuthUserTask">
                <button
               type="button"
@@ -94,7 +95,7 @@ export default ({
     }
   },
   computed: {
-isAuthUserTask(){
+  isAuthUserTask(){
   return this.task.user_id == this.authUser.id
 }
   },

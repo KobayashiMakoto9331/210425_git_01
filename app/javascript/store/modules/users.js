@@ -40,7 +40,7 @@ const actions = {
 
     if(!userResponse) return null
 
-    const authUser = userResponse
+    const authUser = userResponse.data
     if(authUser) {
       commit ('setUser', authUser)
       return authUser

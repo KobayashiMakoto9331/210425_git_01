@@ -75,12 +75,19 @@
 <script>
 export default ({
   name: 'TaskCreateModal',
+  props: {
+    authUserTaskId: {
+      type: Number,
+      required: true
+    }
+  },
   data(){
     return {
       task: {
         title: '',
         description: '',
-        status: ''
+        status: '',
+        user_id: this.authUserTaskId
       },
     }
   },
