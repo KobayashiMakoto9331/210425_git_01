@@ -5,27 +5,27 @@
     </div>
     <div class="form-group text-left">
       <label for="email">メールアドレス</label>
-      <input 
+      <input
         id="email"
+        v-model="user.email"
         type="email"
         class="form-control"
         placeholder="test@example.com"
-        v-model="user.email"
       >
     </div>
     <div class="form-group text-left">
       <label for="password">パスワード</label>
-      <input 
+      <input
         id="password"
+        v-model="user.password"
         type="password"
         class="form-control"
         placeholder="password"
-        v-model="user.password"
       >
     </div>
-    <button 
-      class="btn btn-primary"
+    <button
       type="submit"
+      class="btn btn-primary"
       @click="login"
     >
       ログイン
@@ -36,31 +36,32 @@
 <script>
 import { mapActions } from "vuex"
 
-export default({
+export default {
   name: "LoginIndex",
-  data(){
+  data() {
     return {
       user: {
-        email: '',
-        password: '',
+        email: "",
+        password: "",
       }
     }
   },
-
   methods: {
     ...mapActions("users", [
       "loginUser",
       "fetchUser",
     ]),
-    async login(){
-      try{
-        await this.loginUser(this.user)
-        this.$router.push({name: "TaskIndex"})
-      }catch(err){
-        console.log(err)
+    async login() {
+      try {
+        await this.loginUser(this.user);
+        this.$router.push({ name: 'TaskIndex' })
+      } catch (error) {
+        console.log(error);
       }
-    },
-    
-  },
-})
+    }
+  }
+}
 </script>
+
+<style scoped>
+</style>
