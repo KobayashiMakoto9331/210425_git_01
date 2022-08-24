@@ -18,7 +18,7 @@ module Api::UserAuthenticator
   end
 
   def bearer_token
-    pattern = /^Bearer/
+    pattern = /^Bearer /
     header = request.headers['Authorization']
 
     header.gsub(pattern, '') if header&.match(pattern)
