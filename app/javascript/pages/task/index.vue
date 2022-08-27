@@ -173,6 +173,7 @@ export default {
     },
     // 新規タスク
     handleShowTaskCreateModal(){
+      console.log('新規作るで')
       this.isVisibleTaskCreateModal = true
     },
     handleCloseTaskCreateModal(){

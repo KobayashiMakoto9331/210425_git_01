@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-group text-left">
-      <ValidationProvider rules="required|min:4" v-slot="{ errors }">
+      <ValidationProvider mode="passive" rules="required|min:4" v-slot="{ errors }">
       <label for="password">パスワード</label>
       <input 
         id="password"
