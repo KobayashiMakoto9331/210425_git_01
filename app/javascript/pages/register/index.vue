@@ -37,7 +37,7 @@
       </div>
       <!-- パスワード -->
       <div class="form-group text-left">
-        <ValidationProvider mode="passive" rules="required|min:4" v-slot="{ errors }">
+        <ValidationProvider mode="passive" rules="required|min:4" v-slot="{ errors }" vid="password">
         <label for="password">パスワード</label>
         <input 
           id="password"
@@ -52,7 +52,7 @@
       </div>
       <!-- パスワード (確認用)-->
       <div class="form-group text-left">
-        <ValidationProvider mode="passive" rules="required|min:4|password_confirmation:@password" v-slot="{ errors }">
+        <ValidationProvider mode="passive" rules="required|min:4|password_confirmed:@password" v-slot="{ errors }">
         <label for="password_confirmation">パスワード（確認）</label>
         <input 
           id="password_confirmation"

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
-import { required, min, email } from "vee-validate/dist/rules";
+import { required, email } from "vee-validate/dist/rules";
 
 export default {
   components: {
@@ -40,10 +40,12 @@ extend("required", { // ルールの名前
   message: "{_field_}は必須項目です", // 表示するメッセージ
 });
 
-extend("password_confirmation", {
+extend("password_confirmed", {
   params: ['target'],
   message: 'パスワードと一致しません',
   validate(value, { target }) {
+    console.log(value)
+    console.log(target)
     return value == target
   }
 })
