@@ -46,7 +46,7 @@
         <!-- パスワード -->
         <div class="form-group text-left">
           <ValidationProvider
-            rules="required|min:4"
+            rules="required"
             v-slot="{ errors }"
             vid="password"
           >
@@ -66,7 +66,7 @@
         <!-- パスワード (確認用)-->
         <div class="form-group text-left">
           <ValidationProvider
-            rules="required|min:4|password_confirmed:@password"
+            rules="required|min:3|password_confirmed:@password"
             v-slot="{ errors }"
           >
             <label for="password_confirmation">パスワード（確認）</label>

@@ -4,35 +4,45 @@
       ログイン
     </div>
     <ValidationObserver v-slot="{ handleSubmit }">
+    
+    <!-- メールアドレス -->
     <div class="form-group text-left">
-      <ValidationProvider mode="passive" rules="required|email" v-slot="{ errors }">
-      <label for="email">メールアドレス</label>
-      <input 
-        id="email"
-        type="email"
-        class="form-control"
-        placeholder="test@example.com"
-        v-model="user.email"
-        name="メールアドレス"
+      <ValidationProvider
+        rules="required|email"
+        v-slot="{ errors }"
       >
-      <span class="text-danger">{{ errors[0] }}</span>
+        <label for="email">メールアドレス</label>
+        <input 
+          id="email"
+          type="email"
+          class="form-control"
+          placeholder="test@example.com"
+          v-model="user.email"
+          name="メールアドレス"
+        >
+        <span class="text-danger">{{ errors[0] }}</span>
       </ValidationProvider>
     </div>
 
+    <!-- パスワード -->
     <div class="form-group text-left">
-      <ValidationProvider mode="passive" rules="required|min:4" v-slot="{ errors }">
-      <label for="password">パスワード</label>
-      <input 
-        id="password"
-        type="password"
-        class="form-control"
-        placeholder="password"
-        v-model="user.password"
-        name="パスワード"
-      >
-      <span class="text-danger">{{ errors[0] }}</span>
+      <ValidationProvider
+        rules="required|min:3"
+        v-slot="{ errors }">
+        <label for="password">パスワード</label>
+        <input 
+          id="password"
+          type="password"
+          class="form-control"
+          placeholder="password"
+          v-model="user.password"
+          name="パスワード"
+        >
+        <span class="text-danger">{{ errors[0] }}</span>
       </ValidationProvider>
     </div>
+
+    <!-- ボタン -->
     <button 
       class="btn btn-primary"
       type="submit"
