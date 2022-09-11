@@ -60,7 +60,6 @@
         </router-link>
       </div>
     </div>
-    
 
     <!-- タスク詳細 -->
     <transition name="fade">
@@ -74,11 +73,12 @@
       />
     </transition>
 
+
     <!-- 新規タスク -->
     <transition name="fade">
       <TaskCreateModal
         v-if="isVisibleTaskCreateModal" 
-        :authUserTaskId = "this.authUser.id"
+        :auth-user-task-id = "this.authUser.id"
         @close-create-modal="handleCloseTaskCreateModal"
         @create-task-post="handleCreateTask"
       />
@@ -173,7 +173,6 @@ export default {
     },
     // 新規タスク
     handleShowTaskCreateModal(){
-      console.log('新規作るで')
       this.isVisibleTaskCreateModal = true
     },
     handleCloseTaskCreateModal(){

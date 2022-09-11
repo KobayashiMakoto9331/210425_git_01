@@ -9,74 +9,86 @@
         <div class="modal-content">
           <!-- モーダル -->
           <div class="modal-body">
-            <ValidateObserver v-slot="{handleSubmit}">
-            <!-- タイトル -->
-            <div class="form-group">
-              <ValidationProvider rules="required" v-slot="{ errors }">
-              <label for="title">タイトル</label>
-              <input 
-                id="title"
-                v-model="task.title"
-                type="text"
-                class="form-control"
-                name="タイトル"
-              >
-              <span class="text-danger">{{ errors[0] }}</span>
-              </ValidationProvider>
-            </div>
-            <!-- 説明文 -->
-            <div class="form-group">
-              <ValidationProvider rules="max:500" v-slot="{ errors }">
-              <label for="description">説明文</label>
-              <textarea 
-                id="description"
-                v-model="task.description"
-                class="form-control"
-                rows="5"
-                name="説明文"
-              />
-              <span class="text-danger">{{ errors[0] }}</span>
-             </ValidationProvider>
-            </div>
-            <!-- ステータス -->
-            <div class="form-group">
-              <ValidationProvider rules="required" v-slot="{ errors }">
-              <label for="status">ステータス</label>
-              <select 
-                id="status"
-                v-model="task.status"
-                class="form-control"
-                name="ステータス"
-              >
-                <option value="todo">
-                  TODO
-                </option>
-                <option value="doing">
-                  DOING
-                </option>
-                <option value="done">
-                  DONE
-                </option>
-              </select>
-              <span class="text-danger">{{ errors[0] }}</span>
-              </ValidationProvider>
-            </div>
-            <!-- ボタン -->
-            <div class="d-flex justify-content-between">
-              <button
-                class="btn btn-secondary"
-                @click="handleCloseModal"
-              >
-                閉じる
-              </button>
-              <button
-                class="btn btn-success"
-                @click="handleSubmit(handleCreateTask)"
-              >
-                追加
-              </button>
-              <ValidateObserve>
-            </div>
+            <ValidationObserver v-slot="{handleSubmit}">
+              <!-- タイトル -->
+              <div class="form-group">
+                <ValidationProvider 
+                  rules="required|max:50"
+                  v-slot="{ errors }"
+                >
+                  <label for="title">タイトル</label>
+                  <input 
+                    id="title"
+                    v-model="task.title"
+                    type="text"
+                    class="form-control"
+                    name="タイトル"
+                  >
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+
+              <!-- 説明文 -->
+              <div class="form-group">
+                <ValidationProvider
+                  rules="max:500"
+                  v-slot="{ errors }"
+                >
+                  <label for="description">説明文</label>
+                  <textarea 
+                    id="description"
+                    v-model="task.description"
+                    class="form-control"
+                    rows="5"
+                    name="説明文"
+                  />
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+
+              <!-- ステータス -->
+              <div class="form-group">
+                <ValidationProvider
+                  rules="required"
+                  v-slot="{ errors }"
+                >
+                  <label for="status">ステータス</label>
+                  <select 
+                    id="status"
+                    v-model="task.status"
+                    class="form-control"
+                    name="ステータス"
+                  >
+                    <option value="todo">
+                      TODO
+                    </option>
+                    <option value="doing">
+                      DOING
+                    </option>
+                    <option value="done">
+                      DONE
+                    </option>
+                  </select>
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+              
+              <!-- ボタン -->
+              <div class="d-flex justify-content-between">
+                <button
+                  class="btn btn-secondary"
+                  @click="handleCloseModal"
+                >
+                  閉じる
+                </button>
+                <button
+                  class="btn btn-success"
+                  @click="handleSubmit(handleCreateTask)"
+                >
+                  追加
+                </button>
+              </div>
+            </ValidationObserver>
           </div>
         </div>
       </div>
@@ -105,6 +117,10 @@ export default ({
       },
     }
   },
+  computed: {
+    initialize() {
+    this.task.user_id = this.authUserTaskId
+  }},
   methods: {
     // モーダルを閉じる
     handleCloseModal(){
