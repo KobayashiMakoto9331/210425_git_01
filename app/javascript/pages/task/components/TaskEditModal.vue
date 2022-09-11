@@ -22,6 +22,7 @@
                     v-model="task.title"
                     type="text"
                     class="form-control"
+                    name="タイトル"
                   >
                   <span class="text-danger">{{ errors[0] }}</span>
                 </ValidationProvider>
@@ -39,6 +40,7 @@
                     v-model="task.description"
                     class="form-control"
                     rows="5"
+                    name="説明文"
                   />
                   <span class="text-danger">{{ errors[0] }}</span>
                 </ValidationProvider>
@@ -55,6 +57,7 @@
                     id="status"
                     v-model="task.status"
                     class="form-control"
+                    name="ステータス"
                   >
                     <option value="todo">
                       TODO
@@ -69,7 +72,7 @@
                   <span class="text-danger">{{ errors[0] }}</span>
                 </ValidationProvider>
               </div>
-              
+
               <!-- ボタン -->
               <div class="d-flex justify-content-between">
                 <button

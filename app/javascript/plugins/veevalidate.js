@@ -44,8 +44,6 @@ extend("password_confirmed", {
   params: ['target'],
   message: 'パスワードと一致しません',
   validate(value, { target }) {
-    console.log(value)
-    console.log(target)
     return value == target
   }
 })
