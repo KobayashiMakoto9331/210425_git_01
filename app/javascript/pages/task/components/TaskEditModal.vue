@@ -9,60 +9,83 @@
         <div class="modal-content">
           <!-- モーダル -->
           <div class="modal-body">
-            <!-- タイトル -->
-            <div class="form-group">
-              <label for="title">タイトル</label>
-              <input 
-                id="title"
-                v-model="task.title"
-                type="text"
-                class="form-control"
-              >
-            </div>
-            <!-- 説明文 -->
-            <div class="form-group">
-              <label for="description">説明文</label>
-              <textarea 
-                id="description"
-                v-model="task.description"
-                class="form-control"
-                rows="5"
-              />
-            </div>
-            <!-- ステータス -->
-            <div class="form-group">
-              <label for="status">ステータス</label>
-              <select 
-                id="status"
-                v-model="task.status"
-                class="form-control"
-              >
-                <option value="todo">
-                  TODO
-                </option>
-                <option value="doing">
-                  DOING
-                </option>
-                <option value="done">
-                  DONE
-                </option>
-              </select>
-            </div>
-            <!-- ボタン -->
-            <div class="d-flex justify-content-between">
-              <button
-                class="btn btn-secondary"
-                @click="handleCloseModal"
-              >
-                閉じる
-              </button>
-              <button
-                class="btn btn-success"
-                @click="handleUpdateTask"
-              >
-                更新
-              </button>
-            </div>
+            <ValidationObserver v-slot="{handleSubmit}">
+              <!-- タイトル -->
+              <div class="form-group">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required|max:50"
+                >
+                  <label for="title">タイトル</label>
+                  <input 
+                    id="title"
+                    v-model="task.title"
+                    type="text"
+                    class="form-control"
+                  >
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+
+              <!-- 説明文 -->
+              <div class="form-group">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="max:500"
+                >
+                  <label for="description">説明文</label>
+                  <textarea 
+                    id="description"
+                    v-model="task.description"
+                    class="form-control"
+                    rows="5"
+                  />
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+
+              <!-- ステータス -->
+              <div class="form-group">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="required"
+                >
+                  <label for="status">ステータス</label>
+                  <select 
+                    id="status"
+                    v-model="task.status"
+                    class="form-control"
+                  >
+                    <option value="todo">
+                      TODO
+                    </option>
+                    <option value="doing">
+                      DOING
+                    </option>
+                    <option value="done">
+                      DONE
+                    </option>
+                  </select>
+                  <span class="text-danger">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </div>
+              
+              <!-- ボタン -->
+              <div class="d-flex justify-content-between">
+                <button
+                  class="btn btn-secondary"
+                  @click="handleCloseModal"
+                >
+                  閉じる
+                </button>
+                <button
+                  class="btn btn-success"
+                  @click="handleSubmit(handleUpdateTask)"
+                >
+                  更新
+                </button>
+              </div>
+            </ValidationObserver>
           </div>
         </div>
       </div>
