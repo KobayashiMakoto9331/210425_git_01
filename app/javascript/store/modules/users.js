@@ -31,7 +31,9 @@ const actions = {
     axios.defaults.headers.common['Authorization'] = ''
     commit('setUser', null)
   },
+  // 認証済みのユーザーを取得
   async fetchAuthUser({ commit, state }) {
+    console.log('認証済みユーザーを取得')
     if (!localStorage.auth_token) return null
     if (state.authUser) return state.authUser
 
@@ -43,12 +45,24 @@ const actions = {
 
     const authUser = userResponse.data
     if (authUser) {
+      console.log(userResponse)
       commit('setUser', authUser)
       return authUser
     } else {
       commit('setUser', null)
       return null
     }
+  },
+
+  // プロフィール画像アップロード
+  updateUser({ commit, state }, user){
+    console.log('storeのアクションに入った')
+    // axios.patch(`profile/${state.authUser.id}`, user)
+    axios.patch(`profile`, user)
+    .then(res => {
+      console.log(res.data)
+      commit(`setUser`, res.data)
+    })
   }
 }
 

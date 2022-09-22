@@ -144,6 +144,7 @@ export default {
   created(){
     console.log('===========created')
     this.fetchTasks()
+    console.log(this.au)
   },
   methods: {
     // タスクの全情報取得

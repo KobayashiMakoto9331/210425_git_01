@@ -2,7 +2,7 @@
   <header>
     <nav class="navbar navbar-expand navbar-dark bg-dark justify-content-between">
       <span class="navbar-brand mb-0 h1">タスク管理アプリ</span>
-      <ul class="nabver-nav">
+      <ul class="navbar-nav">
         <template v-if="!authUser">
           <li class="nav-item active">
             <router-link
@@ -22,6 +22,26 @@
           </li>
         </template>
         <template v-else>
+          
+          <!-- プロフィール -->
+          <li class="nav-item active avatar-image-wrapper">
+            <img
+              :src="authUser.avatar_url"
+              width="50px"
+              class="rounded avatar-image"
+            >
+          </li>
+
+          <li class="nav-item active">
+            <router-link
+              :to="{ name: 'ProfileIndex'}"
+              class="nav-link"
+            >
+              プロフィール
+            </router-link>
+          </li>
+
+          <!-- ログアウト -->
           <li class="nav-item active">
             <router-link
               to="#"
@@ -33,6 +53,7 @@
           </li>
         </template>
 
+          
       </ul>
     </nav>
   </header>
@@ -59,3 +80,9 @@ methods: {
 }
 })
 </script>
+
+<style lang="scss" scoped>
+.nav {
+  background-color: #f0f0f0;
+}
+</style>

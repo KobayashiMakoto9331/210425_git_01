@@ -12,12 +12,12 @@ class Api::UsersController < ApplicationController
   end
 
   def me
-    render json: current_user
+    render json: current_user, methods: :avatar_url
   end
 
   private
 
   def users_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
   end
 end
