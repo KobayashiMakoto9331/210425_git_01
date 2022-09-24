@@ -1,5 +1,8 @@
 <template>
-  <div id="login-form" class="container w-50 text-center">
+  <div
+    id="login-form"
+    class="container w-50 text-center"
+  >
     <div class="h3 mb-3">
       プロフィール編集
     </div>

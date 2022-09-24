@@ -27,7 +27,6 @@
           <li class="nav-item active avatar-image-wrapper">
             <img
               :src="authUser.avatar_url"
-              width="50px"
               class="rounded avatar-image"
             >
           </li>
@@ -84,5 +83,11 @@ methods: {
 <style lang="scss" scoped>
 .nav {
   background-color: #f0f0f0;
+}
+.avatar-image-wrapper {
+  line-height: 40px;
+}
+.avatar-image {
+  width: 20px;
 }
 </style>
