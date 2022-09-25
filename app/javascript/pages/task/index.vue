@@ -1,5 +1,19 @@
 <template>
   <div class="container-fluid">
+    <!-- 検索機能 -->
+    <div class="search" id="search-form">
+      <label for="search">絞り込み</label>
+      <input
+        placeholder="タスク名を入力してください"
+        class="form-control"
+        id="search"
+        type="text"
+        v-model="searchTask"
+        v-on:keyup="filterTasks"
+      >
+    </div>
+
+    <!-- タスクリスト -->
     <div class="row">
       <TaskList
         :tasks="todoTasks"
@@ -118,7 +132,8 @@ export default {
       isVisibleTaskModal: false,
       isVisibleTaskCreateModal: false,
       isVisibleTaskEditModal: false,
-      taskEdit: {}
+      taskEdit: {},
+      searchTask: '',
     }
   },
   computed: {
@@ -152,7 +167,8 @@ export default {
       fetchTasks: "fetchTasks",
       createTask: "createTask",
       deleteTask: "deleteTask",
-      updateTask: "updateTask"
+      updateTask: "updateTask",
+      filterTask: "filterTask"
     }),
     // タスク詳細
     handleShowTaskDetailModal(task){
@@ -205,6 +221,11 @@ export default {
       } catch (error){
         console.log(error);
       }
+    },
+
+    // タスク検索
+    filterTasks(){
+      this.filterTask(this.searchTask)
     }
   },
 }
@@ -217,5 +238,8 @@ export default {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+.search {
+  margin-top: 20px;
 }
 </style>

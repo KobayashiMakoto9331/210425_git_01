@@ -28,6 +28,15 @@ const mutations = {
     })
     state.tasks.splice(index, 1, updateTask)
   },
+  filterTasks: (state, {tasks, searchWord}) => {
+    state.tasks = []
+    for (let i=0; i<tasks.length; i++){
+      if((tasks[i].description!=null && tasks[i].description.indexOf(searchWord) != -1)||
+         (tasks[i].title!=null && tasks[i].title.indexOf(searchWord) != -1)){
+          state.tasks.push(tasks[i])
+      }
+    }
+  },
 }
 
 const actions = {
@@ -59,6 +68,16 @@ const actions = {
     .then(res => {
       commit('updateTask', res.data)
       console.log(res.data)
+    })
+  },
+  
+  // 検索
+  filterTask({ commit }, searchWord) {
+    console.log('stateの検索actionに入った')
+    console.log(searchWord)
+    axios.get("/tasks")
+    .then(res => {
+      commit('filterTasks', {tasks: res.data, searchWord: searchWord})
     })
   }
 }

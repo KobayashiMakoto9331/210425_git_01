@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2022_09_19_032020) do
     t.string "title", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "description"
+t.text "description"
     t.integer "status", default: 1, null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
